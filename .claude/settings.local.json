@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh run list:*)",
+      "Bash(grep:*)",
+      "Bash(git add:*)",
+      "Bash(gh run view:*)",
+      "Bash(git rev-list:*)",
+      "Bash(curl:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(ssh:*)",
+      "Bash(npm run build:*)",
+      "WebFetch(domain:test.oncalls.com)",
+      "WebFetch(domain:staging.oncalls.com)",
+      "Bash(npx playwright:*)",
+      "Bash(npm run test:e2e:smoke:*)",
+      "Bash(npm run test:*)",
+      "Read(/Users/jmr/dev/**)",
+      "Bash(gh workflow view:*)",
+      "Bash(git merge:*)",
+      "Bash(npm audit:*)",
+      "Bash(python3:*)",
+      "Bash(/Users/jmr/Library/Python/3.9/bin/pip-audit -r requirements.txt)",
+      "Bash(git checkout:*)",
+      "Bash(timeout 45s npx playwright test critical-paths/shift-assignment-workflow.spec.js --project=chromium --workers=1)"
+    ],
+    "deny": [],
+    "additionalDirectories": [
+      "/private/tmp/Oncalls_Prod_Clean",
+      "/Users/jmr/dev/Oncalls-debug_prod"
+    ]
+  }
+}

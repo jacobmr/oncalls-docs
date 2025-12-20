@@ -1,0 +1,63 @@
+schema: 1
+story: 'Emergency Schedule CSS Fix'
+story_title: 'Production-blocking Schedule page layout collapse'
+gate: CONCERNS
+status_reason: 'Emergency CSS fix applied for production-blocking layout failure. Temporary solution - requires proper Tailwind modernization per Story 005.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2025-09-08T04:30:00Z'
+
+top_issues:
+  - severity: high
+    category: technical_debt
+    description: 'Emergency CSS file created instead of proper Tailwind conversion'
+    impact: 'Schedule page functional but not following modernization patterns'
+    suggested_owner: dev
+    refs: ['frontend/src/pages/ScheduleMonth/ScheduleMonthContent.css']
+
+quality_score: 70
+expires: '2025-09-22T04:30:00Z'
+
+evidence:
+  tests_reviewed: 0
+  risks_identified: 2
+  root_cause: 'Missing CSS imports - ScheduleMonthContent.jsx used undefined classes'
+  fix_applied: 'Created emergency CSS file with basic grid layout'
+
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'No security implications in CSS styling fix'
+  performance:
+    status: PASS  
+    notes: 'Minimal CSS added, no performance impact'
+  reliability:
+    status: CONCERNS
+    notes: 'Emergency fix restores functionality but creates technical debt'
+  maintainability:
+    status: CONCERNS
+    notes: 'CSS file breaks modernization pattern - should be Tailwind classes'
+
+emergency_context:
+  production_blocking: true
+  issue_discovered: 'BMad QA session - Schedule page completely broken'
+  user_impact: 'Admin users cannot access primary scheduling interface'
+  immediate_action: 'Created minimal CSS to restore calendar grid layout'
+
+recommendations:
+  immediate:
+    - action: 'Test emergency fix deployment to staging'
+      refs: ['frontend/src/pages/ScheduleMonth/ScheduleMonthContent.css']
+    - action: 'Verify Schedule page calendar grid displays properly'
+      refs: ['MonthScheduleScreen functionality']
+  future:
+    - action: 'Execute Story 005 - Convert to proper Tailwind CSS v4'
+      refs: ['docs/stories/story-005-month-schedule-screen-modernization.md']
+    - action: 'Remove emergency CSS file after Tailwind conversion'
+      refs: ['frontend/src/pages/ScheduleMonth/ScheduleMonthContent.css']
+
+waiver: 
+  active: false
+
+files_modified:
+  - 'frontend/src/pages/ScheduleMonth/ScheduleMonthContent.jsx - Added CSS import'
+  - 'frontend/src/pages/ScheduleMonth/ScheduleMonthContent.css - Created emergency styles'

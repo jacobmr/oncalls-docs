@@ -1,0 +1,57 @@
+// .bmad-core/shared/types/account.ts
+export interface Account {
+  accountid: number;
+  groupname: string;
+  // ... other account fields like fname, lname, email
+}
+
+// .bmad-core/shared/types/group.ts
+export interface Group {
+  GroupID: number;
+  GroupName: string;
+  accountid: number;
+  // ... other group configuration fields
+}
+
+// .bmad-core/shared/types/user.ts
+// Maps to the 'passwords' table
+export interface User {
+  docid: number; // This is the primary user ID
+  Login: string;
+  Admin: boolean; // 0 or 1 in DB, maps to boolean
+  GroupId: number;
+  fname: string;
+  lname: string;
+  email: string;
+}
+
+// .bmad-core/shared/types/shift.ts
+// Maps to the 'groupcalls' and 'groupcalldays' tables
+export interface Shift {
+  id: number; // from groupcalls.id
+  callabr: string; // Abbreviated name
+  callfull: string; // Full name
+  points: number; // from groupcalldays.points
+  // ... other properties like startTime, endTime
+}
+
+// .bmad-core/shared/types/schedule.ts
+export interface Schedule {
+  ScheduleID: number;
+  Dates: string; // ISO date string
+  DOCID: number; // The user's ID
+  GroupCallID: number; // The shift's ID
+}
+
+// .bmad-core/shared/types/request.ts
+// Maps to 'requests' and 'volunteers' tables
+export interface Request {
+  ReqID?: number; // From 'requests' table
+  VolID?: number; // From 'volunteers' table
+  DocID: number;
+  ReqDate: string; // ISO date string
+  IsApproved: boolean;
+  isRejected: boolean;
+  // This will be determined by which table the data comes from
+  requestType: 'TIMEOFF' | 'VOLUNTEER';
+}
