@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 5, 6, 7]
+stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8]
 inputDocuments:
   - _bmad-output/research-oncalls.md
   - _bmad-output/oncalls-v31-technical-documentation.md
@@ -11,7 +11,7 @@ documentCounts:
   brainstorming: 0
   projectDocs: 3
 workflowType: 'prd'
-lastStep: 7
+lastStep: 8
 project_name: 'OncallsV31'
 user_name: 'Jmr'
 date: '2025-12-19'
@@ -417,4 +417,49 @@ OnCalls operates in the healthcare domain but with a **reduced compliance burden
 - **Database**: MySQL (DigitalOcean managed)
 - **Authentication**: JWT tokens with refresh mechanism
 - **Hosting**: DigitalOcean droplets (scale with growth)
+
+## Release Scoping
+
+### V3.1 - Stability Release (MVP)
+
+**Goal:** Fix critical production bugs. Ship fast, ship stable.
+
+| Priority | Item | Description |
+|----------|------|-------------|
+| **P0 - MUST** | User creation bugs | Fix duplicate user creation, validation failures |
+| **P0 - MUST** | Last-day-of-month bug | Schedule entries failing on month boundaries |
+
+**Explicitly Deferred:**
+- UX polish (klunky workflows) → V3.2
+- Calendar sync improvements → V3.3
+- Self-service password reset → Already implemented
+
+**Success Criteria:** Zero critical bugs in production. Users can create accounts and schedules without errors.
+
+### V3.2 - UX Polish Release
+
+**Goal:** Complete the V2→V3 UX modernization.
+
+| Item | Description |
+|------|-------------|
+| Account creation workflow | Streamline onboarding flow |
+| Shift/service configuration | Make intuitive, reduce confusion |
+| Overall UI consistency | Apply modern patterns across all pages |
+
+### V3.3 - Integration Enhancements
+
+| Item | Description |
+|------|-------------|
+| Calendar sync | Improve iCal/Google Calendar reliability |
+| Notification improvements | Better alerts for schedule changes |
+
+### V4 - AI-Powered Scheduling
+
+**Goal:** "The schedule makes itself!"
+
+| Item | Description |
+|------|-------------|
+| Conversational onboarding | Chat-based group setup |
+| AI schedule generation | Equity-aware automatic scheduling |
+| Chatbot queries | Natural language schedule questions |
 
