@@ -1,5 +1,5 @@
 ---
-stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8]
+stepsCompleted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 inputDocuments:
   - _bmad-output/research-oncalls.md
   - _bmad-output/oncalls-v31-technical-documentation.md
@@ -11,7 +11,7 @@ documentCounts:
   brainstorming: 0
   projectDocs: 3
 workflowType: 'prd'
-lastStep: 8
+lastStep: 11
 project_name: 'OncallsV31'
 user_name: 'Jmr'
 date: '2025-12-19'
@@ -462,4 +462,120 @@ OnCalls operates in the healthcare domain but with a **reduced compliance burden
 | Conversational onboarding | Chat-based group setup |
 | AI schedule generation | Equity-aware automatic scheduling |
 | Chatbot queries | Natural language schedule questions |
+
+## Functional Requirements
+
+### V3.1 Functional Requirements
+
+#### FR-1: User Creation
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-1.1 | System SHALL prevent duplicate user creation (same email within group) | P0 |
+| FR-1.2 | System SHALL validate all required fields (email, name) before submission | P0 |
+| FR-1.3 | System SHALL provide clear, actionable error messages on validation failure | P0 |
+| FR-1.4 | System SHALL auto-generate unique username from email address | P0 |
+| FR-1.5 | System SHALL handle edge cases (special characters in names, long emails) | P1 |
+
+#### FR-2: Schedule Entry - Month Boundaries
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-2.1 | System SHALL correctly save schedule entries on the last day of any month | P0 |
+| FR-2.2 | System SHALL handle all month lengths (28, 29, 30, 31 days) | P0 |
+| FR-2.3 | System SHALL not lose or corrupt data during month transitions | P0 |
+| FR-2.4 | System SHALL validate date inputs before persisting to database | P0 |
+
+#### FR-3: Core Scheduling (Existing - Must Maintain)
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-3.1 | System SHALL allow authorized users to create/edit monthly schedules | P0 |
+| FR-3.2 | System SHALL display schedules by day, week, and month views | P0 |
+| FR-3.3 | System SHALL support multiple shift types per group | P0 |
+| FR-3.4 | System SHALL enforce role-based access (admin vs. member vs. read-only) | P0 |
+
+### V4 Functional Requirements (Future)
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-4.1 | System SHALL provide conversational onboarding interface | P0 |
+| FR-4.2 | System SHALL generate schedule suggestions based on equity rules | P0 |
+| FR-4.3 | System SHALL support weighted shift values (holidays, weekends) | P0 |
+| FR-4.4 | System SHALL answer natural language queries about schedules | P1 |
+| FR-4.5 | System SHALL require human confirmation before publishing AI schedules | P0 |
+
+## Non-Functional Requirements
+
+### Performance
+
+| ID | Requirement | Target |
+|----|-------------|--------|
+| NFR-P1 | Monthly schedule view load time | < 2 seconds |
+| NFR-P2 | Day/Week schedule view load time | < 0.5 seconds |
+| NFR-P3 | User creation response time | < 1 second |
+| NFR-P4 | API response time (95th percentile) | < 500ms |
+
+### Reliability
+
+| ID | Requirement | Target |
+|----|-------------|--------|
+| NFR-R1 | System uptime | 99.9% |
+| NFR-R2 | Data durability | Zero data loss |
+| NFR-R3 | Backup frequency | Daily automated backups |
+| NFR-R4 | Recovery time objective (RTO) | < 4 hours |
+
+### Security
+
+| ID | Requirement | Target |
+|----|-------------|--------|
+| NFR-S1 | Password storage | Bcrypt hashing (fix plaintext!) |
+| NFR-S2 | Session management | JWT with refresh tokens |
+| NFR-S3 | Input validation | All user inputs sanitized |
+| NFR-S4 | Audit logging | All schedule changes logged |
+
+### Scalability
+
+| ID | Requirement | Target |
+|----|-------------|--------|
+| NFR-SC1 | Concurrent users | 500+ simultaneous |
+| NFR-SC2 | Groups supported | 1000+ groups |
+| NFR-SC3 | Database size | Handle 5+ years of schedule data |
+
+### Maintainability
+
+| ID | Requirement | Target |
+|----|-------------|--------|
+| NFR-M1 | Code coverage | 70%+ for critical paths |
+| NFR-M2 | Deployment frequency | On-demand via CI/CD |
+| NFR-M3 | Error monitoring | Centralized logging |
+
+## Appendix
+
+### A. Document History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | 2025-12-19 | JMR + BMAD PM | Initial PRD creation |
+
+### B. Related Documents
+
+- Technical Documentation: `oncalls-v31-technical-documentation.md`
+- Domain Research: `research-oncalls.md`
+- Server Audit: `server-infrastructure-audit.md`
+
+### C. Glossary
+
+| Term | Definition |
+|------|------------|
+| Group | A medical practice or organization (tenant) |
+| Shift | A defined period of on-call coverage |
+| Service | A type of coverage (e.g., "Pediatrics", "Surgery") |
+| Equity | Fair distribution of shifts considering weightings |
+| Weighting | Relative value of shifts (holiday > weekday) |
+
+---
+
+**PRD Status:** Complete
+**Next Steps:** Architecture → Epics & Stories → Implementation
 
