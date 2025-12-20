@@ -141,21 +141,30 @@ Key Tables:
 
 ## Infrastructure Decisions
 
-### ID-1: Decommission Debug Server
+### ID-1: Repurpose Debug Server as V2-Test
 
-**Decision:** Shut down debug server (159.203.131.40)
+**Decision:** Replace debug server contents with production snapshot
 
 **Rationale:**
-- Contains older, buggier code than production
-- No unique value - staging serves testing needs
-- Costs money for no benefit
-- Reduces attack surface
+- Debug server has older, buggier code - useless as-is
+- Need a safe place to test V2 bug fixes before production
+- Staging is running V3 (React migration) - can't use for V2 testing
+- Snapshot of production gives accurate test environment
+
+**New Server Roles:**
+
+| Server | IP | Purpose | Code Version |
+|--------|-----|---------|--------------|
+| Production | 45.55.92.178 | Live users | V2 |
+| **V2-Test** | 159.203.131.40 | Test bug fixes | V2 (prod snapshot) |
+| Staging | 159.203.167.125 | V3 migration | V3 |
 
 **Action Items:**
-1. Backup any uncommitted changes (already done - commit 5cfc6802)
-2. Verify no DNS points to this server
-3. Power off via DigitalOcean
-4. Delete droplet after 30 days if no issues
+1. Create DigitalOcean snapshot of Production (45.55.92.178)
+2. Restore/replace debug droplet with snapshot
+3. Update V2-Test .env to use `oncalls_stage` database (NOT oncalls_live!)
+4. Optional: Set up DNS test-v2.oncalls.com → 159.203.131.40
+5. Test deployment workflow: Local → V2-Test → Production
 
 ### ID-2: Enable HTTPS on Production
 
